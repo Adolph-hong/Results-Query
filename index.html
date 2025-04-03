@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: skyblue;  
+    }
+
+    input {
+      width: 40px;
+      height: 30px;
+    }
+
+    button {
+      width: 60px;
+      height: 40px;
+      font-size: 20px;
+    }
+
+    div {
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <p>成績查詢</p>
+  <p>
+    國文: <input type="number" class="chinese" min="0" max="100">
+  </p>
+  <p>
+    英文: <input type="number" class="english" min="0" max="100">
+  </p>
+  <p>
+    數文: <input type="number" class="math" min="0" max="100">
+  </p>
+  <button type="button" class="reset"> 清空 </button>
+  <button type="button" class="compute"> 計算 </button>
+  <br><br>
+  <div>平均: <span class="avg"></span></div>
+  <div>結果: <span class="result"></span></div>
+  <div>等級: <span class="grade"></span></div>
+
+  <script>
+    const chinese = document.querySelector('.chinese');
+    const english = document.querySelector('.english');
+    const math = document.querySelector('.math');
+    const reset = document.querySelector('.reset');
+    const compute = document.querySelector('.compute');
+    const avg = document.querySelector('.avg');
+    const result = document.querySelector('.result');
+    const grade = document.querySelector('.grade');
+
+    reset.addEventListener('click', function () {
+      chinese.value = '';
+      english.value = '';
+      math.value = '';
+      avg.textContent = '';
+      grade.textContent = '';
+      result.textContent = '';
+    });
+
+    compute.addEventListener('click', function () {
+      if (!(chinese.value && english.value && math.value)) {
+        alert('輸入分數啦');
+      } else {
+        let avgScore = (Number(chinese.value) + Number(english.value) + Number(math.value)) / 3;
+        let gradeText = '';
+
+        if (avgScore >= 90) {
+          gradeText = 'A'
+        } else if (avgScore >= 80) {
+          gradeText = 'B'
+        } else if (avgScore >= 70) {
+          gradeText = 'C'
+        } else if (avgScore >= 60) {
+          gradeText = 'D'
+        } else {
+          gradeText = '回來補修吧Q_Q'
+        }
+
+        avg.textContent = avgScore.toFixed(2);
+        grade.textContent = gradeText;
+
+        if (avgScore < 60) {
+          result.textContent = '不及格';
+        } else {
+          result.textContent = '及格';
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
